@@ -2,16 +2,40 @@ package com.lesley.GestionPresences.entities;
 
 
 import com.lesley.GestionPresences.Enum.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name="Admin")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Administrateur extends User {
+    @Enumerated(EnumType.STRING)
+    @NotBlank(message = "Le rôle est obligatoire")
+    @Pattern(
+            regexp = "^(SUPER_ADMIN|ADMIN)$",
+            message = "Le rôle doit être SUPER_ADMIN, ADMIN"
+    )
     private Role role;
+
+
+    @ElementCollection // ← SOLUTION : Annotation ajoutée ici
+    @CollectionTable(
+            name = "admin_permissions", // Table de jointure pour les permissions
+            joinColumns = @JoinColumn(name = "admin_id")
+    )
+    @Column(name = "permission", length = 50) // Colonne dans la table de jointure
+    @Size(max = 50, message = "Chaque permission ne peut pas dépasser 50 caractères")
     private List<String> permissions;
-
-
 }
