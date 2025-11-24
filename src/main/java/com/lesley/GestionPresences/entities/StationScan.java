@@ -15,14 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StationScan {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotBlank(message = "Le nom est obligatoire")
-    @Size(min = 2, max = 200, message = "Le nom doit contenir entre 2 et 200 caractères")
-    private String nom;
+public class StationScan extends User {
 
     @NotBlank(message = "La localisation est obligatoire")
     @Size(max = 100, message = "La localisation ne peut pas dépasser 100 caractères")

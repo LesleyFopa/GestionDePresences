@@ -4,8 +4,6 @@ package com.lesley.GestionPresences.entities;
 import com.lesley.GestionPresences.Enum.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,14 +19,6 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Administrateur extends User {
-    @Enumerated(EnumType.STRING)
-    @NotBlank(message = "Le rôle est obligatoire")
-    @Pattern(
-            regexp = "^(SUPER_ADMIN|ADMIN)$",
-            message = "Le rôle doit être SUPER_ADMIN, ADMIN"
-    )
-    private Role role;
-
 
     @ElementCollection // ← SOLUTION : Annotation ajoutée ici
     @CollectionTable(
