@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -42,9 +44,8 @@ public class Cours {
     @Max(value = 60, message = "La plage de validation ne peut pas dépasser 60 minutes")
     private Integer plageValidation;
 
-    @OneToOne
-    @JoinColumn(name = "presence_id")
-    private Presence presence;
+    @OneToMany(mappedBy = "cours", cascade = CascadeType.ALL)
+    private List<Presence> presences = new ArrayList<>();
 
     // Validation de cohérence des dates
     @AssertTrue(message = "L'heure de fin doit être après l'heure de début")

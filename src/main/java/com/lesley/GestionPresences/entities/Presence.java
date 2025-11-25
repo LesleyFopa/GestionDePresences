@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name ="Presences")
@@ -24,7 +25,7 @@ public class  Presence {
 
     @NotNull(message = "La date et heure sont obligatoires")
     @PastOrPresent(message = "La date et heure ne peuvent pas être dans le futur")
-    private LocalDate dateHeure;
+    private LocalDateTime dateHeure;
 
     @NotNull(message = "Le statut de présence est obligatoire")
     @Enumerated(EnumType.STRING)
@@ -44,7 +45,8 @@ public class  Presence {
     @JoinColumn(name = "etudiant_id")
     private Etudiant etudiant;
 
-    @OneToOne(mappedBy = "cours")
+    @ManyToOne
+    @JoinColumn(name = "cours_id")
     private Cours cours;
 
     // Validations de cohérence métier

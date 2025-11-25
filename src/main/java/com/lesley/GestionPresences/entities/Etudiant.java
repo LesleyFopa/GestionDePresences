@@ -14,11 +14,10 @@ import lombok.experimental.SuperBuilder;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="Etudiants")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Etudiant extends User {
     @NotNull(message = "Le matricule ne peut pas être nul")
     @Size(min = 3, max = 20, message = "Le matricule doit contenir entre 3 et 20 caractères")
